@@ -58,7 +58,7 @@ public class Ecommerce {
 	public void endReport() {
 		extent.flush();
 	}
-
+//before test execution
 	@BeforeTest
 	public void setup() {
 		WebDriverManager.firefoxdriver().setup();
