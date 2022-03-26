@@ -3,15 +3,15 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="com.daraz.Ecommerce">
+      <class name="com.priyoshop.Ecommerce">
         <methods>
-          <include name="darazLogoTest"/>
-          <include name="tearDown"/>
+          <include name="buyProduct"/>
           <include name="endReport"/>
-          <include name="setup"/>
           <include name="setExtent"/>
+          <include name="setup"/>
+          <include name="tearDown"/>
         </methods>
-      </class> <!-- com.daraz.Ecommerce -->
+      </class> <!-- com.priyoshop.Ecommerce -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

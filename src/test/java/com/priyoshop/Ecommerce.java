@@ -1,4 +1,5 @@
-package com.daraz;
+package com.priyoshop;
+
 
 
 
@@ -9,11 +10,15 @@ import java.util.Date;
 
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
@@ -65,35 +70,70 @@ public class Ecommerce {
 		 driver = new FirefoxDriver();
 		driver.manage().window().maximize();
 
-		driver.get("https://www.daraz.com.bd");
+		driver.get("https://www.priyoshop.com/");
 	}
 
+	
+	
 	@Test(priority = 0)
-	public void darazTitleTest() {
+	public void priyoTitleTest() {
 
-		test = extent.createTest("darazTitleTest");
+		test = extent.createTest("prioTitleTest");
 	
 		String title = driver.getTitle();
 		System.out.println(title);
-		Assert.assertEquals(title, "Online Shopping in Bangladesh: Order Now from Daraz.com.bd");
+		Assert.assertEquals(title, "PriyoShop.com - Online Shopping in Bangladesh");
 	}
 	@Test(priority = 1)
-	public void darazLogoTest() throws InterruptedException {
-		test = extent.createTest("darazLogoTest");
-		Thread.sleep(15000);
-		driver.getWindowHandles();
-		driver.switchTo().alert().dismiss();
-		int logo = driver.findElements(By.cssSelector("a[data-spm-anchor-id= 'a2a0e.home.header.dhome']")).size(); 
+	public void priyoLogoTest() throws InterruptedException {
+		test = extent.createTest("priyoLogoTest");
+		Thread.sleep(5000);
+		driver.findElement(By.cssSelector(".btn-close")).click();
+		
+		int logo = driver.findElements(By.cssSelector("img[alt=\"PriyoShop.com\"]")).size(); 
 		if(logo > 0) {
 			System.out.println("logo found");
+			test.log(Status.PASS, "Priyo logo found"); 
 		}else {
 			System.out.println("logo not found");
 		}
+		
 		//driver.quit();
 		
 	}
 	
+	@Test(priority = 2)
+	public void logIn() {
+		test = extent.createTest("Log In");
+		
+		Actions action = new Actions(driver);
+		
+		WebElement myAccount = driver.findElement(By.cssSelector("div[class='header-links-wrapper']"));
+		action.moveToElement(myAccount).build().perform();
+		
+		driver.findElement(By.cssSelector("a[href=\"/login\"]")).click(); 
+		
+		driver.findElement(By.id("Username")).sendKeys("jinax99174@minimeq.com"); 
+		driver.findElement(By.id("Password")).sendKeys("priyo1234"); 
+		driver.findElement(By.cssSelector("input[value='Log in']")).click(); 
+		
+		
+		
+	}
 
+	@Test(priority = 3)
+	public void buyProduct() throws InterruptedException {
+		test = extent.createTest("Buy a Product");
+		
+		driver.findElement(By.id("small-searchterms")).sendKeys("pureit", Keys.ENTER);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("a[href *='/pureit-classic-germ-kill-kit-1500ltr']")).click(); 
+		
+		
+		
+		
+		
+	}
 	
 	@AfterMethod
 	 public void tearDown(ITestResult result) throws IOException {
