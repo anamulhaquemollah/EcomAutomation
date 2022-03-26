@@ -37,7 +37,7 @@ public class Ecommerce {
 	public ExtentHtmlReporter htmlReporter;
 	public ExtentReports extent;
 	public ExtentTest test;
-
+//this one will run before test
 	@BeforeTest
 	public void setExtent() {
 		htmlReporter = new ExtentHtmlReporter(System.getProperty("user.dir") + "/test-output/myReport.html");
