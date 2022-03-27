@@ -42,6 +42,8 @@ public class Ecommerce {
 	public ExtentHtmlReporter htmlReporter;
 	public ExtentReports extent;
 	public ExtentTest test;
+	
+	public Actions action;
 //this one will run before test
 	@BeforeTest
 	public void setExtent() {
@@ -68,6 +70,9 @@ public class Ecommerce {
 	public void setup() {
 		WebDriverManager.firefoxdriver().setup();
 		 driver = new FirefoxDriver();
+		 
+		 action = new Actions(driver);
+		 
 		driver.manage().window().maximize();
 
 		driver.get("https://www.priyoshop.com/");
@@ -106,7 +111,7 @@ public class Ecommerce {
 	public void logIn() {
 		test = extent.createTest("Log In");
 		
-		Actions action = new Actions(driver);
+		//Actions action = new Actions(driver);
 		
 		WebElement myAccount = driver.findElement(By.cssSelector("div[class='header-links-wrapper']"));
 		action.moveToElement(myAccount).build().perform();
@@ -126,8 +131,15 @@ public class Ecommerce {
 		test = extent.createTest("Buy a Product");
 		
 		driver.findElement(By.id("small-searchterms")).sendKeys("pureit", Keys.ENTER);
-		Thread.sleep(2000);
-		driver.findElement(By.cssSelector("a[href *='/pureit-classic-germ-kill-kit-1500ltr']")).click(); 
+		Thread.sleep(4000);
+		
+		driver.findElement(By.cssSelector("a[title*=\"Pureit Classic Germ Kill Kit 1500ltr\"]")).click(); 
+		driver.findElement(By.id("add-add-to-cart-button-52914")).click(); 
+		
+		
+		driver.findElement(By.cssSelector("a[href *= '/cart']")).click();
+		
+	
 		
 		
 		
